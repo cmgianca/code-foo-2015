@@ -11,7 +11,7 @@ IGN's Code-Foo 2015 is open to US residents only.  All answers must be completed
 
 2. How many ping-pong balls can you fit in 747? Describe each step in your thought process.
  
-**My answer was written in pingpongplane.md.**
+ **My answer was written in pingpongplane.md.**
 
 3. Write a program to find the given words from the included word search. Both word search and words can be found at [word-search.txt] (https://github.com/ign/code-foo-2015/blob/master/word-search.txt)
 
