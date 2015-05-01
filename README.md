@@ -11,19 +11,19 @@ IGN's Code-Foo 2015 is open to US residents only.  All answers must be completed
 
 2. How many ping-pong balls can you fit in 747? Describe each step in your thought process.
  
- My answer was written in pingpongplane.md. 
+** My answer was written in pingpongplane.md. **
 
 3. Write a program to find the given words from the included word search. Both word search and words can be found at [word-search.txt] (https://github.com/ign/code-foo-2015/blob/master/word-search.txt)
 
-  I decided to write this program in java, since that is the language I feel most comfortable with at the moment. To run the program, simply compile and run WordSearch.java. It takes no command line arguments, but makes the assumption that word-search.txt is in the same directory, in order to parse the data and come up with a solution. If it all works, a window should appear with a graphic showing the location of every word in the puzzle. 
+  ** I decided to write this program in java, since that is the language I feel most comfortable with at the moment. To run the program, simply compile and run WordSearch.java. It takes no command line arguments, but makes the assumption that word-search.txt is in the same directory, in order to parse the data and come up with a solution. If it all works, a window should appear with a graphic showing the location of every word in the puzzle. **
 
 4.  Using [this API] (http://ign-apis.herokuapp.com), pull and display a list of both articles and videos.
 
-  Goto answer 5:
+  **Goto answer 5:**
 
 5. Using the results from the previous question, create a web/ios/android application that displays the results and matches [this design] (https://github.com/ign/code-foo-2015/blob/master/design.png). The application should be responsive to common screen/device sizes.
 
-  My application was made through a combination of html, css and javascript. To open and use the application, go into the "IGN_app_files" directory and simply run "a.htm" in a browser. The program was made for firefox, but seems to work fine in chrome aside from one minor graphical inconsistency. Also, you can click on any of the posted links to be linked directly to that webpage. Honestly, I wasn't particularly confident with my web development skills at all going into this, but I learned quite a bit and came out with a functional result. 
+  **My application was made through a combination of html, css and javascript. To open and use the application, go into the "IGN_app_files" directory and simply run "a.htm" in a browser. The program was made for firefox, but seems to work fine in chrome aside from one minor graphical inconsistency. Also, you can click on any of the posted links to be linked directly to that webpage. Honestly, I wasn't particularly confident with my web development skills at all going into this, but I learned quite a bit and came out with a functional result. **
 
 Bonus Question
 --------------
