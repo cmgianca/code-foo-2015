@@ -15,7 +15,7 @@ IGN's Code-Foo 2015 is open to US residents only.  All answers must be completed
 
 3. Write a program to find the given words from the included word search. Both word search and words can be found at [word-search.txt] (https://github.com/ign/code-foo-2015/blob/master/word-search.txt)
 
-  **I decided to write this program in java, since that is the language I feel most comfortable with at the moment. To run the program, simply compile and run WordSearch.java. It takes no command line arguments, but makes the assumption that word-search.txt is in the same directory, in order to parse the data and come up with a solution. If it all works, a window should appear with a graphic showing the location of every word in the puzzle.**
+  **I decided to write this program in java, since that is the language I feel most comfortable with at the moment. To run the program, simply compile and run WordSearch.java. It takes no command line arguments, but makes the assumption that word-search.txt is in the same directory, in order to parse the data and come up with a solution. If it all works, a window should appear with a simple graphic showing the location of every word in the puzzle.**
 
 4.  Using [this API] (http://ign-apis.herokuapp.com), pull and display a list of both articles and videos.
 
