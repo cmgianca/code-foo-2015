@@ -8,6 +8,7 @@ To apply to Code-Foo 2015, fork this repository and answer all questions. Push y
 IGN's Code-Foo 2015 is open to US residents only.  All answers must be completed using Java, Scala, PHP, Ruby, Swift, Objective-C, or JavaScript. Application must be turned in by _Friday, May 1st at 5pm PST_. You will be notified by email if you pass the first round of submissions.
 
 1. Create a 2-5 minute video introducing yourself and tell us why we should choose you for the Code-Foo program.
+ **My Introduction:** https://youtu.be/X1zSgSHkWGg
 
 2. How many ping-pong balls can you fit in 747? Describe each step in your thought process.
  
