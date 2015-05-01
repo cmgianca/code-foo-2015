@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>IGN Web App - jsFiddle demo</title>
+  
+  <script type="text/javascript" src="a_data/dummy.js"></script>
+  
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="a_data/result-light.css">
+  
+    
+      <script type="text/javascript" src="a_data/jquery-1.js"></script>
+    
+  
+    
+      <script type="text/javascript" src="a_data/handlebars.js"></script>
+    
+  
+  <style type="text/css">
+    * {
+    max-width:768;
+}
+
+body {
+    padding: 20px;
+}
+#search-form, .form-control {
+    margin-bottom: 20px;
+}
+
+.head {
+    width: 650px;
+    height: 120px;
+    line-height: 80px;
+    display: inline-block;
+    background-color: white;
+    text-align:center;
+    margin: 0;
+    position: relative;
+    left:30px;
+}
+
+.videos {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 1em;
+  font-weight: 900;
+  background: #ac0000;
+  padding: 20px 70px 20px 120px;
+  border: solid #ac0000 2px;
+  text-decoration: none;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.videos:hover {
+  background: #ff0000;
+}
+
+.videos:hover + redbox{
+  background: #ff0000;
+}
+
+.articles {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  font-weight: 900;
+  color: #ac0000;
+  font-size: 1em;
+  background: #ffffff;
+  padding: 20px 120px 20px 70px;
+  border: solid #ac0000 2px;
+  text-decoration: none;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.articles:hover {
+  background: #fff0f0;
+  text-decoration: none;
+}
+
+.slot {
+    width: 650px;
+    height: 120px;
+    display: block;
+    background-color: white;
+    text-align:left;
+    cursor: pointer;
+    position: relative;
+    left:30px;
+}
+.slot:hover pointer {
+    display:block;
+}
+.bolder {
+    font-weight: bold;
+}
+.bolder {
+    font-weight: 900;
+}
+pointer {
+    background:#ac0000;
+    color: #ac0000;
+    height: 55px;
+    width: 16px;
+    position: absolute;
+    display:none;
+    left:-10px;
+    bottom:35px;
+    z-index: 1;
+}
+
+redbox {
+    background:#ac0000;
+    color: #ac0000;
+    border-top: solid #ac0000 2px;
+    border-bottom: solid #ac0000 2px;
+    height: 62px;
+    width: 64px;
+    position: absolute;
+    z-index: 1;
+    top:34px;
+    left:282px;
+}
+
+label {
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    color: #585858;
+    width: 450px;
+    height: 100px;
+    background-color: white;
+    text-align:left;
+    display:inline-block;
+    word-wrap: break-word;
+    cursor: pointer;
+    margin:0px;
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-bottom: 1px solid grey;
+    overflow: hidden;
+}
+
+number {
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 900;
+    color: black;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    text-align:center;
+    display:inline-block;
+    cursor: pointer;
+    margin:0px;
+    position:relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-bottom: 1px dotted grey;
+}
+time {
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 900;
+    color: #424242;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    text-align:center;
+    display:inline-block;
+    cursor: pointer;
+    margin:0px;
+    position:absolute;
+    right:0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-bottom: 1px solid grey;
+}
+.next {
+    width: 650px;
+    height: 60px;
+    line-height: 80px;
+    display: inline-block;
+    background-color: white;
+    text-align:center;
+    margin:0px;
+    position: relative;
+    left:30px;
+    top:-10px;
+    cursor: pointer;
+}
+
+nextbox {
+    width: 450px;
+    height: 60px;
+    font-weight: bold;
+    color: #424242;
+    line-height: 80px;
+    display: inline-block;
+    background-color: white;
+    text-align:left;
+    margin:0px;
+    cursor: pointer;
+}
+  </style>
+  
+
+
+<script type="text/javascript">//<![CDATA[ 
+window.onload=function(){
+document.body.style.backgroundColor = "black";
+document.getElementById("title").style.font = "bold 50px sans-serif,serif";
+document.getElementById("title").style.fontWeight = "900";
+document.getElementById("title").style.color = "white";
+
+var index = 0;
+var type = "Videos"; //if 0, articles are selected
+
+// find template and compile it
+var templateSource = document.getElementById('results-template').innerHTML,
+    template = Handlebars.compile(templateSource),
+    resultsPlaceholder = document.getElementById('results');
+
+function pad(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
+}
+
+Handlebars.registerHelper("counter", function (i) {
+    return pad(index + i + 1);
+});
+
+Handlebars.registerHelper("type", function () {
+    return type;
+});
+
+Handlebars.registerHelper("clock", function (time) {
+    var minutes = Math.floor(time / 60);
+    var seconds = time - minutes * 60;
+    return minutes.toString() + ":" + pad(seconds);
+});
+
+function search(type, start, c) {
+    $.ajax({
+        url: 'http://ign-apis.herokuapp.com/'.concat(type),
+        data: {
+            startIndex: start,
+            count: c
+        },
+        crossDomain: true,
+        dataType: 'jsonp',
+        success: function (response) {
+            resultsPlaceholder.innerHTML = template(response);
+        }
+    });
+};
+
+search("videos", 0, 10);
+
+results.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target !== null) {
+
+    }
+});
+
+document.getElementById('articles').addEventListener('click', function (e) {
+    index = 0;
+    type = "Articles";
+    search("articles", index, 10);
+    document.getElementById("title").innerHTML = "ARTICLES";
+}, false);
+
+document.getElementById('videos').addEventListener('click', function (e) {
+    index = 0;
+    type = "Videos";
+    search("videos", index, 10);
+    document.getElementById("title").innerHTML = "VIDEOS";
+}, false);
+
+document.getElementById('loader').addEventListener('click', function (e) {
+    index = 10 + index;
+    search(type.toLowerCase(), index, 10);
+    document.getElementById("title").innerHTML = "VIDEOS";
+}, false);
+
+}//]]>  
+
+</script>
+
+
+</head>
+<body style="background-color: black;">
+  <script>
+    function pad(d) {
+        return (d < 10) ? '0' + d.toString() : d.toString();
+    }
+
+    function OpenNewTab(type, date, link) {
+        var url = "http://www.ign.com/".concat(type, date.getFullYear().toString());
+        url = url.concat("/", pad(date.getMonth() + 1));
+        url = url.concat("/", pad(date.getDate()));
+        url = url.concat("/", link);
+        window.location.replace(url);
+    }
+</script>
+
+<h1 id="title" style="position: relative; left: 80px; font: 900 50px sans-serif,serif; color: white;"> VIDEOS </h1>
+
+<div class="head">
+    <input name="videosButton" id="videos" value="VIDEOS" class="videos" type="submit">
+    <redbox></redbox>
+    <input name="articlesButton" id="articles" value="ARTICLES" class="articles" type="submit">
+</div>
+<div id="results">
+     
+     
+        <div id="res" data-id="female-driven-jump-street-film-men-in-black-crossover-in-works-ign-news" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T23:41:00+0000'), 'female-driven-jump-street-film-men-in-black-crossover-in-works-ign-news')"> 
+            <pointer></pointer>
+            <number>01</number> 
+            <label> 
+                <span class="bolder"> Female-Driven Jump Street Film, Men in Black Crossover in Works </span> <br>
+                <span class="bold">Sony Pictures is developing not one 
+but two Jump Street films: a female-driven spin-off, and a Men in Black 
+crossover for what is essentially 23 Jump Street.</span> 
+            </label>
+            <time>1:06</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="avengers-iron-man-suit-aspire" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T23:37:00+0000'), 'avengers-iron-man-suit-aspire')"> 
+            <pointer></pointer>
+            <number>02</number> 
+            <label> 
+                <span class="bolder"> Avengers Iron Man | Aspire </span> <br>
+                <span class="bold"></span> 
+            </label>
+            <time>1:51</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="infinite-crisis-review-commentary" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T23:25:00+0000'), 'infinite-crisis-review-commentary')"> 
+            <pointer></pointer>
+            <number>03</number> 
+            <label> 
+                <span class="bolder"> Review Commentary </span> <br>
+                <span class="bold">Infinite Crisis does cool things with its character roles and lore, but lacks enough accessible modes.</span> 
+            </label>
+            <time>11:40</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="will-dragon-ball-super-be-a-good-entry-series-ign-anime-club" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T23:25:00+0000'), 'will-dragon-ball-super-be-a-good-entry-series-ign-anime-club')"> 
+            <pointer></pointer>
+            <number>04</number> 
+            <label> 
+                <span class="bolder"> Will Dragon Ball Super Be a Good Entry Series - IGN Anime Club </span> <br>
+                <span class="bold">IGN Anime Club discusses the newly 
+announced Dragon Ball series and speculate whether or not it will be a 
+good starting point for new fans.</span> 
+            </label>
+            <time>4:26</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="halo-5-gets-new-spartans-shadow-of-mordor-game-of-the-year-edition-ign-daily-fix" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T23:10:00+0000'), 'halo-5-gets-new-spartans-shadow-of-mordor-game-of-the-year-edition-ign-daily-fix')"> 
+            <pointer></pointer>
+            <number>05</number> 
+            <label> 
+                <span class="bolder"> Halo 5 Gets New Spartans &amp; Shadow of Mordor Game of the Year Edition - IGN Daily Fix </span> <br>
+                <span class="bold">Check out Halo 5's new Spartans &amp;
+ Shadow of Mordor's Game of the Year Edition. Plus find out May's lineup
+ for Games with Gold and PlayStation Plus and why PS4's are selling big 
+on eBay.</span> 
+            </label>
+            <time>3:58</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="frozen-star-josh-gad-on-trying-to-love-the-star-wars-prequels" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T23:00:00+0000'), 'frozen-star-josh-gad-on-trying-to-love-the-star-wars-prequels')"> 
+            <pointer></pointer>
+            <number>06</number> 
+            <label> 
+                <span class="bolder"> Frozen Star Josh Gad on Trying to Love the Star Wars Prequels </span> <br>
+                <span class="bold">The Comedians' Josh Gad geeks out 
+with us on The Force Awakens, Terminator, Spoilers, Frozen, Comic Con 
+Nerds, Mel Brooks, &amp; his new show with Billy Crystal on FX Thursdays
+ at 10 PM.</span> 
+            </label>
+            <time>20:34</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="destiny-8-things-you-need-to-know-about-trials-of-osiris" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T22:56:00+0000'), 'destiny-8-things-you-need-to-know-about-trials-of-osiris')"> 
+            <pointer></pointer>
+            <number>07</number> 
+            <label> 
+                <span class="bolder"> Destiny: 8 Things You Need to Know About Trials of Osiris </span> <br>
+                <span class="bold">Bungie's new PVP mode is set to redeem PVP. IGN's Jose Otero and Destin Legarie unpack all the info.</span> 
+            </label>
+            <time>6:48</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="microsoft-hololens-demo-recess" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T22:53:00+0000'), 'microsoft-hololens-demo-recess')"> 
+            <pointer></pointer>
+            <number>08</number> 
+            <label> 
+                <span class="bolder"> Microsoft HoloLens Demo | Recess </span> <br>
+                <span class="bold">Holograms and VR are about to change our world in a big way.</span> 
+            </label>
+            <time>3:57</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="internet-explorer-replacement-finally-gets-a-name-ign-news" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T22:44:00+0000'), 'internet-explorer-replacement-finally-gets-a-name-ign-news')"> 
+            <pointer></pointer>
+            <number>09</number> 
+            <label> 
+                <span class="bolder"> Internet Explorer Replacement Finally Gets a Name </span> <br>
+                <span class="bold">During the Build 2015 conference, Microsoft showed off details of its new web browser, previously known as Project Spartan.</span> 
+            </label>
+            <time>0:54</time> 
+    </div>
+     
+     
+     
+     
+        <div id="res" data-id="dragon-ball-z-heroes-villains-booster-box-opening" class="slot" onclick="OpenNewTab('videos/', new Date('2015-04-29T22:37:00+0000'), 'dragon-ball-z-heroes-villains-booster-box-opening')"> 
+            <pointer></pointer>
+            <number>10</number> 
+            <label> 
+                <span class="bolder"> Dragon Ball Z: Heroes &amp; Villains Booster Box Opening </span> <br>
+                <span class="bold">We go through and unpack all 24 booster packs in this Heroes &amp; Villains booster box from Panini.</span> 
+            </label>
+            <time>22:25</time> 
+    </div>
+     
+     
+    
+</div>
+<script id="results-template" type="text/x-handlebars-template">
+    {{#each data}} 
+    {{#if metadata.url}} 
+        <div id = "res" data-id = "{{metadata.slug}}" class = "slot"
+    onclick = "OpenNewTab('videos/', new Date('{{metadata.publishDate}}'), '{{metadata.slug}}')" > 
+            <pointer></pointer>
+            <number>{{counter @index}}</number> 
+            <label> 
+                <span class="bolder"> {{metadata.title}} </span> <br>
+                <span class="bold">{{metadata.description}}</span > 
+            </label>
+            <time>{{clock metadata.duration}}</time > 
+    </div>
+    {{/if}} 
+    {{#if metadata.headline}} 
+        <div id="res" data-id="{{metadata.slug}}" class = "slot"
+        onclick = "OpenNewTab('articles/', new Date('{{metadata.publishDate}}'), '{{metadata.slug}}')" > 
+            <pointer> </pointer>
+            <number>{{counter @index}}</number> 
+            <label>
+                <span class="bolder"> {{metadata.headline}} </span> <br>
+                <span class="bold"> {{metadata.subHeadline}}</span >
+            </label>
+            <time></time>
+        </div >   
+    {{/if}} 
+    {{/each}}
+</script>
+<div id="loader" class="next">
+    <nextbox> Load More </nextbox>    
+</div>
+  
+
+
+
+
+
+</body></html>
