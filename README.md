@@ -19,11 +19,11 @@ IGN's Code-Foo 2015 is open to US residents only.  All answers must be completed
 
 4.  Using [this API] (http://ign-apis.herokuapp.com), pull and display a list of both articles and videos.
 
-  Goto question 5:
+  Goto answer 5:
 
 5. Using the results from the previous question, create a web/ios/android application that displays the results and matches [this design] (https://github.com/ign/code-foo-2015/blob/master/design.png). The application should be responsive to common screen/device sizes.
 
-  My application was made through a combination of html, css and javascript. To open and use the application, go into the "IGN_app_files" directory and simply run "a.htm" in a browser. The program was made for firefox, but seems to work fine in chrome aside from one minor graphical inconsistency. Also, you can click on any of the posted links to be linked directly to that webpage. 
+  My application was made through a combination of html, css and javascript. To open and use the application, go into the "IGN_app_files" directory and simply run "a.htm" in a browser. The program was made for firefox, but seems to work fine in chrome aside from one minor graphical inconsistency. Also, you can click on any of the posted links to be linked directly to that webpage. Honestly, I wasn't particularly confident with my web development skills at all going into this, but I learned quite a bit and came out with a functional result. 
 
 Bonus Question
 --------------
